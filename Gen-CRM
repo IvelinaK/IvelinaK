@@ -1,0 +1,57 @@
+class Customer:
+    def __init__(self, name, email, genetic_data):
+        self.name = name
+        self.email = email
+        self.genetic_data = genetic_data
+
+class CRM:
+    def __init__(self):
+        self.customers = []
+
+    def add_customer(self, name, email, genetic_data):
+        new_customer = Customer(name, email, genetic_data)
+        self.customers.append(new_customer)
+        print(f"Customer '{name}' added successfully.")
+
+    def get_customer(self, email):
+        for customer in self.customers:
+            if customer.email == email:
+                return customer
+        print(f"Customer with email '{email}' not found.")
+
+    def update_customer(self, email, new_name=None, new_email=None, new_genetic_data=None):
+        customer = self.get_customer(email)
+        if customer:
+            if new_name:
+                customer.name = new_name
+            if new_email:
+                customer.email = new_email
+            if new_genetic_data:
+                customer.genetic_data = new_genetic_data
+            print(f"Customer '{email}' updated successfully.")
+
+# Example usage:
+crm = CRM()
+
+# Add a new customer with genetic data
+crm.add_customer("John Doe", "john@example.com", {"gene1": "AA", "gene2": "CC"})
+
+# Retrieve customer data
+customer = crm.get_customer("john@example.com")
+if customer:
+    print(f"Customer Name: {customer.name}")
+    print(f"Customer Email: {customer.email}")
+    print("Customer Genetic Data:")
+    for gene, value in customer.genetic_data.items():
+        print(f"{gene}: {value}")
+
+# Update customer information
+crm.update_customer("john@example.com", new_name="John Smith", new_genetic_data={"gene1": "TT", "gene2": "GG"})
+
+# Retrieve updated customer data
+customer = crm.get_customer("john@example.com")
+if customer:
+    print(f"Updated Customer Name: {customer.name}")
+    print("Updated Customer Genetic Data:")
+    for gene, value in customer.genetic_data.items():
+        print(f"{gene}: {value}")
